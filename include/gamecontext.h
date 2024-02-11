@@ -6,6 +6,7 @@ class GameContext {
 public:
     GameContext();
     ~GameContext();
+    /// @brief Initialize SDL
     void initialize();
 
     /// @brief Can only be called by GameState during construction.

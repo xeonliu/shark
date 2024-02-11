@@ -1,6 +1,9 @@
 #pragma once
+#include <vector>
 #include <SDL2/SDL.h>
 class GameContext;
+class GameObject;
+class SpriteComponent;
 
 class GameState {
 public:
@@ -9,10 +12,21 @@ public:
     virtual void enter() = 0;
     virtual void play();
     virtual void exit() = 0;
+
+    void addGameObject(GameObject*);
+    void removeGameObject(GameObject*);
+
+    void addSprite(SpriteComponent*);
+    void removeSprite(SpriteComponent*);
+    
 protected:
     GameContext* mContext;
     SDL_Renderer* mRenderer;
+    std::vector<GameObject*> mGameObjects;
+    std::vector<GameObject*> mPendingObjects;
+    std::vector<SpriteComponent*> mSprites;
     bool isRunning;
+    bool isUpdating;
 private:
     virtual void Event();
     virtual void Update();
@@ -28,7 +42,7 @@ public:
 private:
     // void Event();
     // void Update();
-    void Draw() override;
+    // void Draw() override;
     SDL_Texture* logo;
 };
 

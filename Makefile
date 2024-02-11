@@ -1,5 +1,7 @@
 TARGET = main
-OBJS= main.o gamestate.o gamecontext.o loadimage.o
+OBJS = main.o 
+OBJS += gamestate.o gamecontext.o gameobject.o component.o
+OBJS += math.o loadimage.o
 CFLAGS = -g
 LIBDIR  =
 LIBS = -lstdc++ -lSDL2main -lSDL2 -lGL -lGLU -lglut -lz \
