@@ -8,6 +8,7 @@ public:
     Component(GameObject*, int update_order = 100);
     ~Component();  
     virtual void Update();
+    virtual void ProcessInput(const uint8_t &button_state);
 
     int GetUpdateOrder();
 protected:

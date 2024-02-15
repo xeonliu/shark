@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <cstdint>
 #include "math.h"
 class GameState;
 class Component;
@@ -37,11 +38,20 @@ public:
     void SetScale(const Vector2&);
     void SetRotation(float);
 
+    void ProcessInput(const uint8_t &button_state);
+
 
     
 
     void AddComponent(Component*);
     void RemoveComponent(Component*);
+
+    // For Compositor Design Pattern Interface.
+    // virtual void AddChildObject(GameObject*);
+    // virtual void RemoveChildObject(GameObject*);
+
+    template<typename T>
+    T* GetComponent();
 
 protected:
     std::vector<Component*> mComponents;
@@ -52,3 +62,13 @@ private:
     Vector2 mScale;
     float mRotation;
 };
+
+// class CompositeGameObject : public GameObject {
+// public:
+//     CompositeGameObject(GameState*);
+
+//     void AddChildObject(GameObject*) override;
+//     void RemoveChildObject(GameObject*) override;
+// protected:
+//     std::vector<GameObject*> mGameObjects;
+// };

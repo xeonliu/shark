@@ -19,6 +19,10 @@ int Component::GetUpdateOrder(){
     return updateOrder;
 }
 
+void Component::ProcessInput(const uint8_t &button_state) {
+    return;
+}
+
 SpriteComponent::SpriteComponent(GameObject* object, int draw_order, int update_order) : Component(object,update_order), mDrawOrder(draw_order){
     mGameObject->GetGameState()->addSprite(this);
 }

@@ -6,6 +6,7 @@
 #include "include/gamecontext.h"
 #include "include/gameobject.h"
 #include "include/component.h"
+#include "include/itemlist.h"
 
 GameState::GameState(GameContext* context) : mContext(context), isRunning(true){
     mContext->setState(this);
@@ -32,6 +33,9 @@ void GameState::Event(){
         case SDL_CONTROLLERBUTTONDOWN:
             button_state = event.cbutton.button;
             // Deal with input
+            for (auto object : mGameObjects) {
+                object->ProcessInput(button_state);
+            }
             break;
         default:
             break;
@@ -135,15 +139,33 @@ WelcomeState::WelcomeState(GameContext* context) : GameState(context){
 void WelcomeState::enter(){
     // Load Texture
     logo = LoadTextureFromFile("images/shared-1-sheet3.png",mRenderer);
-    // Create Game Objects
-    GameObject* button = new GameObject(this);
-    button->SetPosition({100,200});
-    // Create Sprites
-    SpriteComponent* sprite = new SpriteComponent(button,1);
-    // Setup Sprites
-    sprite->SetTexture(logo);
+    // // Create Game Objects
+    // GameObject* button = new GameObject(this);
+    // button->SetPosition({100,200});
+    // // Create Sprites
+    // SpriteComponent* sprite = new SpriteComponent(button,1);
+    // // Setup Sprites
+    // sprite->SetTexture(logo);
     SDL_Rect imgSrc = {128,198,58,18};
-    sprite->SetSrcRect(imgSrc);
+    // sprite->SetSrcRect(imgSrc);
+
+    ItemList* list = new ItemList(this);
+    
+    Item* item_1 = new Item(list);
+    item_1->SetPosition({100,100});
+    ItemCompoent* comp = new ItemCompoent(item_1);
+    comp->SetTexture(logo);
+    comp->SetSrcRect(imgSrc);
+    
+    Item* item_2 = new Item(list);
+    item_2->SetPosition({200,200});
+    ItemCompoent* comp2 = new ItemCompoent(item_2);
+    comp2->SetTexture(logo);
+    comp2->SetSrcRect(imgSrc);
+    
+    ItemListInputComponent* input_comp = new ItemListInputComponent(list);
+
+
 }
 
 // void WelcomeState::Draw(){

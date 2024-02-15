@@ -76,4 +76,23 @@ void GameObject::SetScale(const Vector2& vec){
     mScale = vec;
 }
 
+void GameObject::ProcessInput(const uint8_t &button_state) {
+    if(mState == State::EActive){
+        for(auto component : mComponents) {
+            component->ProcessInput(button_state);
+        }
+    }
+}
+
+template<typename T>
+T* GameObject::GetComponent(){
+    T* ans = nullptr;
+    for (auto component : mComponents) {
+        ans = dynamic_cast<T*>(component);
+        if(ans!=nullptr) {
+            return ans;
+        }
+    }
+    return nullptr;
+}
 
